@@ -81,9 +81,22 @@ This runs the full pipeline end-to-end and writes all final CSV files.
 
 ## Notes & Assumptions
 
-This solution follows the instruction of computing all technical indicators strictly on monthly closing prices. I did not apply forward filling, backfilling, or interpolation anywhere in the workflow. The early SMA/EMA values appear blank because the rolling windows do not have enough monthly data points in the initial rows, which is mathematically correct behaviour.
-
-The dataset naturally contained a complete 24-month range for each ticker (Jan 2018 → Dec 2019), so no padding or synthetic month construction was required. The entire pipeline is implemented using Python and Pandas only, as was asked, without relying on external technical analysis libraries.
+- All technical indicators (SMA10, SMA20, EMA10, EMA20) were calculated **only on the monthly closing prices**, as explicitly required in the assignment.
+  
+- **No forward filling, interpolation, smoothing, or artificial values** were introduced at any point. Missing values in early SMA/EMA windows are mathematically expected because the required periods are not yet complete.
+  
+- Monthly OHLC values strictly follow financial definitions:
+  - **Open** → first trading day of the month  
+  - **Close** → last trading day of the month  
+  - **High/Low** → maximum/minimum daily prices within the month
+  
+- The raw dataset contained **a complete 24-month timeline per ticker** (Jan 2018 → Dec 2019); therefore, no date reconstruction, padding, or backfilling logic was required.
+  
+- No technical analysis libraries such as TA-Lib were used — **only Python and Pandas vectorised operations** were utilized, as instructed.
+  
+- All project modules run **end-to-end through `python src/main.py`**, requiring no manual intervention. Each transformation stage remains independent, reproducible, and testable.
+  
+- All assumptions and transformations were kept intentionally transparent to reflect **realistic financial data engineering standards and auditability**.
 
 ---
 
