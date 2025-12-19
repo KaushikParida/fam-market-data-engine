@@ -74,6 +74,7 @@ From project root:
 
 ```bash
 python src/main.py
+```
 This runs the full pipeline end-to-end and writes all final CSV files.
 
 ---
